@@ -2,15 +2,8 @@
 #include<string.h>
 #define x 22
 #define y 77
-
-int main()
-{
-int plansza[x][y];
-int i,j;
-int x1,y1;
-int xw,yw;
-int owoc,glowa;
-void Snake(){
+void Snake(int plansza[x][y],int owoc){
+	int i,j;
 	for(i=0;i<x;i++)
 	{
 		for(j=0;j<y;j++)
@@ -18,9 +11,9 @@ void Snake(){
 			plansza[i][j]=0;
 		}
 	}
-	owoc=0;
 }
-void losowanieowocow(){
+void losowanieowocow(int plansza[x][y],int owoc){
+	int x1,y1;
 	x1=1+rand()%2;
 	y1=1+rand()%3;
 	if(owoc == 0 && plansza[x1][y1]){
@@ -28,7 +21,8 @@ void losowanieowocow(){
 		owoc=1;
 	}
 }
-void rysowanieplanszy(){
+void rysowanieplanszy(int plansza[x][y]){
+	int i,j;
 	for(i=0;i<=y+1;i++){
 		if(i==0)
 			printf("%c",35 );
@@ -59,8 +53,11 @@ void rysowanieplanszy(){
 		printf("%c",61);
 	}
 }
-Snake();
-rysowanieplanszy();
-losowanieowocow();	
-
+int main()
+{
+	int plansza[x][y];
+	int owoc;
+Snake(plansza,owoc);
+losowanieowocow(plansza,owoc);	
+rysowanieplanszy(plansza);
 }
