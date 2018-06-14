@@ -114,7 +114,47 @@ void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glow
 		}
 		glowa++;
 		plansza[x1][y1] = glowa;
-	}	
+	}
+	if(poz=37){
+		y1--;
+		if(y==-1) y1=y-1;
+		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
+			koniec(gra,plansza,owoc,ogon,glowa);
+		if(plansza[x1][y1]==-1){
+			ogon--;
+			ogon--;
+			owoc=0;
+		}
+		glowa++;
+		plansza[x1][y1] = glowa;
+	}
+	if(poz=38){
+		x1--;
+		if(x1==-1) x1=x-1;
+		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
+			koniec(gra,plansza,owoc,ogon,glowa);
+		if(plansza[x1][y1]==-1){
+			ogon--;
+			ogon--;
+			owoc=0;
+		}
+		glowa++;
+		plansza[x1][y1] = glowa;
+	}
+	if(poz=40){
+		x1++;
+		if(x1==x) x1=0;
+		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
+			koniec(gra,plansza,owoc,ogon,glowa);
+		if(plansza[x1][y1]==-1){
+			ogon--;
+			ogon--;
+			owoc=0;
+		}
+		glowa++;
+		plansza[x1][y1] = glowa;
+	}
+		
 }
 int main()
 {
