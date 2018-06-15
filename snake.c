@@ -80,20 +80,27 @@ void rysowanieplanszy(int plansza[x][y],int glowa){
 		printf("%c",61);//dol 
 	}
 }
+char klawa(){ //zmiana z void na char lub int 
+	if(_kbhit())
+		return _getch();
+ 	else 
+		return -1;
+}
 void koniec (int gra,int plansza[x][y],int owoc,int ogon,int glowa){
+	char par;
 	printf("\a");
 	Sleep(1500);
 	system("Cls");
-	printf("Koniec Gry");
-	printf("wcisnij enter aby zagrac ponownie lub esc aby wyjsc");
-	while(1){
-		char par;
-		if(par== 13){
+	printf("				Koniec Gry\n");
+	printf("	Wcisnij enter aby zagrac ponownie lub esc aby wyjsc");
+	while(1){	
+		par = klawa();
+		if(par == 13){
 			gra=0;
 			Snake(plansza,owoc,ogon,glowa);
 			break;
 		}
-		else if(par== 27){
+		else if(par == 27){
 			gra=1;
 			break;
 		}
@@ -101,7 +108,7 @@ void koniec (int gra,int plansza[x][y],int owoc,int ogon,int glowa){
 	system("Cls");
 }
 void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glowa,int gra){
-	if(poz=39){
+	if(poz=100){//RIGHT 68 100
 		y1++;
 		if(plansza[x1][y1] !=0 && plansza[x1][y1] !=-1) 
 			koniec(gra,plansza,owoc,ogon,glowa);
@@ -115,7 +122,7 @@ void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glow
 		glowa++;
 		plansza[x1][y1] = glowa;
 	}
-	if(poz=37){
+	if(poz=97){//LEFT 65 97
 		y1--;
 		if(y==-1) y1=y-1;
 		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
@@ -128,7 +135,7 @@ void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glow
 		glowa++;
 		plansza[x1][y1] = glowa;
 	}
-	if(poz=38){
+	if(poz=119){//UP 87 119
 		x1--;
 		if(x1==-1) x1=x-1;
 		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
@@ -141,7 +148,7 @@ void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glow
 		glowa++;
 		plansza[x1][y1] = glowa;
 	}
-	if(poz=40){
+	if(poz=115){//DOWN 63 115
 		x1++;
 		if(x1==x) x1=0;
 		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
@@ -153,8 +160,7 @@ void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glow
 		}
 		glowa++;
 		plansza[x1][y1] = glowa;
-	}
-		
+	}	
 }
 int main()
 {
@@ -163,7 +169,24 @@ int main()
 	int x1,y1;
 	int ogon,glowa;
 	char poz;
-Snake(plansza,owoc,ogon,glowa);
-losowanieowocow(plansza,owoc,x1,y1);	
-rysowanieplanszy(plansza,glowa);
+	int gra;
+	koniec (gra,plansza[x][y],owoc,ogon,glowa);
+/*	while(gra==0){
+		
+	Snake(plansza,owoc,ogon,glowa);
+	losowanieowocow(plansza,owoc,x1,y1);	
+	rysowanieplanszy(plansza,glowa);
+	klawa();	
+	}*/
+	//	Snake(plansza,owoc,ogon,glowa);
+//	rysowanieplanszy(plansza,glowa);
+//	for(;;){
+//	klawa();	
+//	pozycja(poz,owoc,plansza[x][y],x1,y1,ogon,glowa,gra);
+//	}
+
+	
+//pozycja(poz,owoc,plansza[x][y],x1,y1,ogon,glowa,gra);
+
+
 }
