@@ -7,14 +7,13 @@
 #include <time.h>
 #define x 22
 #define y 77
-#define predkosc 80
 /*
 LEFT - 37
 UP - 38
 RIGHT - 39
 DOWN - 40
 */
-void Snake(int plansza[x][y],int owoc,int ogon,int glowa){
+void Snake(int plansza[x][y],int owoc,int ogon,int glowa,char par){
 	int i,j;
 	int x1,y1;
 	int gy1;
@@ -30,10 +29,23 @@ void Snake(int plansza[x][y],int owoc,int ogon,int glowa){
 	owoc=0;
 	ogon=1;
 	gy1=y1;
+	par=100;
 	for(i=0;i<glowa;i++){
 		gy1++;
 		plansza[x1][gy1-glowa]=i+1;
 	}
+}
+void przesogon(int x1,int y1,int plansza[x][y],int ogon){
+	int i=0;
+	int j=0;
+	for(i=0;i<x;i++){
+		for(j=0;j<y;j++){
+			if(plansza[i][j]==ogon){
+				plansza[i][j]=0;
+			}	
+		}
+	}
+	ogon++;
 }
 void losowanieowocow(int plansza[x][y],int owoc,int x1,int y1){
 	x1=1+rand()%30;//losowanie pozycji x 
@@ -97,7 +109,7 @@ void koniec (int gra,int plansza[x][y],int owoc,int ogon,int glowa){
 		par = klawa();
 		if(par == 13){
 			gra=0;
-			Snake(plansza,owoc,ogon,glowa);
+			Snake(plansza,owoc,ogon,glowa,par);
 			break;
 		}
 		else if(par == 27){
@@ -107,7 +119,9 @@ void koniec (int gra,int plansza[x][y],int owoc,int ogon,int glowa){
 	}
 	system("Cls");
 }
-void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glowa,int gra){
+void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glowa,int gra,char par){
+	par = klawa();
+	if(((par == 100||par == 97) || (par == 119 || par == 115))&&(abs(poz - par)>5))poz=par;
 	if(poz=100){//RIGHT 68 100
 		y1++;
 		if(plansza[x1][y1] !=0 && plansza[x1][y1] !=-1) 
@@ -125,7 +139,7 @@ void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glow
 	if(poz=97){//LEFT 65 97
 		y1--;
 		if(y==-1) y1=y-1;
-		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
+		if(plansza[x1][y1] !=0 && plansza[x1][y1] !=-1) 
 			koniec(gra,plansza,owoc,ogon,glowa);
 		if(plansza[x1][y1]==-1){
 			ogon--;
@@ -138,7 +152,7 @@ void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glow
 	if(poz=119){//UP 87 119
 		x1--;
 		if(x1==-1) x1=x-1;
-		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
+		if(plansza[x1][y1] !=0 && plansza[x1][y1] !=-1) 
 			koniec(gra,plansza,owoc,ogon,glowa);
 		if(plansza[x1][y1]==-1){
 			ogon--;
@@ -151,7 +165,7 @@ void pozycja(char poz,int owoc,int plansza[x][y],int x1,int y1,int ogon,int glow
 	if(poz=115){//DOWN 63 115
 		x1++;
 		if(x1==x) x1=0;
-		if(plansza[x][y] !=0 && plansza[x][y] !=-1) 
+		if(plansza[x1][y1] !=0 && plansza[x1][y1] !=-1) 
 			koniec(gra,plansza,owoc,ogon,glowa);
 		if(plansza[x1][y1]==-1){
 			ogon--;
@@ -168,25 +182,13 @@ int main()
 	int owoc;
 	int x1,y1;
 	int ogon,glowa;
-	char poz;
+	char poz,par;
 	int gra;
-	koniec (gra,plansza[x][y],owoc,ogon,glowa);
-/*	while(gra==0){
-		
-	Snake(plansza,owoc,ogon,glowa);
-	losowanieowocow(plansza,owoc,x1,y1);	
-	rysowanieplanszy(plansza,glowa);
-	klawa();	
-	}*/
-	//	Snake(plansza,owoc,ogon,glowa);
-//	rysowanieplanszy(plansza,glowa);
-//	for(;;){
-//	klawa();	
-//	pozycja(poz,owoc,plansza[x][y],x1,y1,ogon,glowa,gra);
-//	}
-
-	
-//pozycja(poz,owoc,plansza[x][y],x1,y1,ogon,glowa,gra);
-
-
+	Snake(plansza,owoc,ogon,glowa,par);
+	while(gra==0){
+		rysowanieplanszy(plansza,glowa);
+		losowanieowocow(plansza,owoc,x1,y1);	
+		pozycja(poz,owoc,plansza,x1,y1,ogon,glowa,gra,par);
+		przesogon(x1,y1,plansza,ogon);
+	}
 }
