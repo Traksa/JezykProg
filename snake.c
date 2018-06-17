@@ -2,21 +2,19 @@
 #include <string.h>
 #include <stdlib.h>
 #include <conio.h>
-#include <windows.h>//zmienic 
+ #ifdef _WIN32 
+ #include <windows.h> 
+ #define ekran() system("cls") 
+ #endif 
+#ifdef __linux__  
+ #define ekran() system("clear") 
+  #endif
 #include <ctype.h>
-#include <time.h>
 #define x 22
 #define y 60
-/*
-LEFT - 37
-UP - 38
-RIGHT - 39
-DOWN - 40
-*/
-int plansza[x][y],owoc,ogon,glowa,gra,predkosc,punkty;
-int i,j,x1,z,a,b,gy1;
+
+int plansza[x][y],owoc,ogon,glowa,gra,predkosc,punkty,i,j,x1,z,owox,owoy,gy1;
 char poz,par;
-//y1=z
 void Snake(){
 	for(i=0;i<x;i++)
 	{
@@ -25,13 +23,14 @@ void Snake(){
 			plansza[i][j]=0;
 		}
 	}
-	x1=x/2; z=y/2;//pozycja x i y weza na starcie 
-	glowa=5;
+	x1=x/2; 
+	z=y/2;//pozycja x i y weza na starcie 
+	glowa=2;
 	predkosc=80;
 	owoc=0;
 	ogon=1;
 	gy1=z;
-	poz='d';//100
+	poz='d';
 	gra=0;
 	punkty=0;
 	for(i=0;i<glowa;i++){
@@ -50,14 +49,15 @@ void przesogon(){
 	ogon++;
 }
 void losowanieowocow(){
-	a=1+rand()%30;//losowanie pozycji x 
-	b=1+rand()%50;//losowanie pozycji y
-	if(owoc == 0 && plansza[a][b] == 0){
-		plansza[a][b]=-1;
+	owox=1+rand()%20;//losowanie pozycji x 
+	owoy=1+rand()%30;//losowanie pozycji y
+	if(owoc == 0 && plansza[owox][owoy] == 0){
+		plansza[owox][owoy]=-1;
 		owoc=1;
 	if(predkosc>10 && punkty !=0) predkosc--;
 	}
 }
+
 void rysowanieplanszy(){
 	for(i=0;i<=y+1;i++){
 		if(i==0)//rysowanie lewego gornego rogu pola
@@ -67,20 +67,20 @@ void rysowanieplanszy(){
 		else //rysowanie gornej granicy pola 
 			printf("%c",61);//gora
 	}
-	printf("punkty: %d",punkty);
+	printf(" Twoje punkty: %d",punkty);
 	printf("\n");
 	for(i=0;i<x;i++){
 		printf("%c",124);//lewa strona
-
+		
 		for(j=0;j<y;j++){
 			if(plansza[i][j] == 0)//rysowanie pustego pola
 				printf(" ");//puste pole 		
 			if(plansza[i][j] == -1)//rysowanie owocu
-				printf("%c", 42);//owoc	
+				printf("%c", 178);//owoc	
 			if(plansza[i][j]>0 && plansza[i][j] !=glowa)//rysowanie ogonu
-				printf("%c",91);//ogon
+				printf("%c",219);//ogon
 			if(plansza[i][j]==glowa)//rysowanie glowy
-				printf("%c",62);//glowa
+				printf("%c",254);//glowa
 			if(j==y-1)//rysowanie prawej granicy pola
 				printf("%c\n",124);//prawa strona
 		}	
@@ -102,15 +102,18 @@ char klawa(){ //zmiana z void na char lub int
 }
 void koniec (){
 	printf("\a");
+	system("color 4");
 	Sleep(1500);
-	system("Cls");
-	printf("				Koniec Gry\n");
-	printf("	Wcisnij enter aby zagrac ponownie lub esc aby wyjsc");
+	ekran();
+	printf("\n\n\n\n\n\n\n\n\n");
+	printf("			  	    Koniec Gry\n");
+	printf("				Zdobyles %d punktow\n",punkty);
+	printf("		Wcisnij enter aby zagrac ponownie lub Esc aby wyjsc");
 	while(1){	
 		par = klawa();
 		if(par == 13){
 			gra=0;
-			Snake();
+			Snake(); 
 			break;
 		}
 		else if(par == 27){
@@ -118,7 +121,7 @@ void koniec (){
 			break;
 		}
 	}
-	system("Cls");
+	ekran();
 }
 void pozycja(){
 	par = klawa();
@@ -131,7 +134,7 @@ void pozycja(){
 		if(z == y)
 			z=0;
 		if(plansza[x1][z]==-1){
-			punkty=punkty+5;
+			punkty=punkty+1;
 			ogon--;
 			ogon--;
 			owoc=0;
@@ -141,11 +144,12 @@ void pozycja(){
 	}
 	if(poz=='a'){//LEFT 65 97
 		z--;
-		if(y==-1) z=y-1;
+		if(z==-1) 
+			z=y-1;
 		if(plansza[x1][z] !=0 && plansza[x1][z] !=-1) 
 			koniec();
 		if(plansza[x1][z]==-1){
-			punkty=punkty+5;
+			punkty=punkty+1;
 			ogon--;
 			ogon--;
 			owoc=0;
@@ -159,7 +163,7 @@ void pozycja(){
 		if(plansza[x1][z] !=0 && plansza[x1][z] !=-1) 
 			koniec();
 		if(plansza[x1][z]==-1){
-			punkty=punkty+5;
+			punkty=punkty+1;
 			ogon--;
 			ogon--;
 			owoc=0;
@@ -173,7 +177,7 @@ void pozycja(){
 		if(plansza[x1][z] !=0 && plansza[x1][z] !=-1) 
 			koniec();
 		if(plansza[x1][z]==-1){
-			punkty=punkty+5;
+			punkty=punkty+1;
 			ogon--;
 			ogon--;
 			owoc=0;
@@ -182,7 +186,7 @@ void pozycja(){
 		plansza[x1][z] = glowa;
 	}	
 }
-void ResetScreenPosition() 
+void ResetScreenPosition()
     {
         HANDLE hOut;
         COORD Position;
@@ -191,15 +195,29 @@ void ResetScreenPosition()
         Position.Y = 0;
         SetConsoleCursorPosition(hOut, Position);
     }
+void start(){
+	printf("\n\n\n\n\n\n\n\n\n");
+	printf("				 Game Snake\n");
+	printf("	  		Kierowanie wezem klawiszami w,a,s,d .\n");
+	printf("	  	 	Gra polega na zbieraniu owocow %c \n", 178);
+	printf("	  	 	Za kazdy owoc otrzymujemy 1 pkt  \n");	  	 	
+	printf("		  wcisnij enter aby rozpoczac gre , Esc aby wyjsc");
+	printf("				    Lub za 30 sek gra wlaczy sie automatycznie ");
+	Sleep(30000);
+	ekran();
+}
 int main()
 {
-	Snake();
-	while(gra == 0){
-	rysowanieplanszy();
-	losowanieowocow();	
-	pozycja();
-	przesogon();
-	Sleep(predkosc);
-	ResetScreenPosition();
-	}
+	system("color 2");
+	start();
+
+		Snake();
+		while(gra == 0){
+			rysowanieplanszy();
+			losowanieowocow();	
+			pozycja();
+			przesogon();
+			Sleep(predkosc);
+			ResetScreenPosition();
+		}
 }
