@@ -113,6 +113,7 @@ void rysowanieplanszy(){//funkcja ktora przysuje pole/weza/owoc
 	else 
 		printf("%c",61);//rysuje dol 
 	}
+	printf("\n");
 }
 char klawa(){ //Funkcja ktora wyczytuje z klawiszy 
 	if(kbhit()) //sprawdza, czy w buforze klawiatury znajduj¹ siê dane do odczytania
@@ -223,7 +224,7 @@ void start(){
 	printf("	  		Kierowanie wezem klawiszami w,a,s,d .\n");
 	printf("	  	 	Gra polega na zbieraniu owocow %c \n", owoco);
 	printf("	  	 	Za kazdy owoc otrzymujemy 1 pkt  \n");	  	 	
-	printf("		  wcisnij enter aby rozpoczac gre , Esc aby wyjsc");
+	printf("		  wcisnij enter aby rozpoczac gre , Esc aby wyjsc\n");
 }
 int main()
 {
