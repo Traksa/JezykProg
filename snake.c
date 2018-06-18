@@ -2,14 +2,32 @@
 #include <string.h>
 #include <stdlib.h>
 #include <conio.h>
- #ifdef _WIN32 
- #include <windows.h> 
- #define ekran() system("cls") 
- #endif 
-#ifdef __linux__  
- #define ekran() system("clear") 
-  #endif
 #include <ctype.h>
+
+#ifdef _WIN32 
+#include <windows.h> 
+#include <conio.h>
+
+#define glowao 254
+#define ogono 219
+#define owoco 178
+#define kolorc system("color 4")
+#define kolorz system("color 2")
+#define ekran() system("cls") 
+#define czas Sleep(predkosc)
+#endif 
+
+#ifdef __linux__  
+#include <curses.h>
+#define glowao 62
+#define ogono 35
+#define owoco 64
+#define kolorc printf("\033[1;33m") 
+#define kolorz printf("\033[1;32m")
+#define czas sleep(predkosc)
+#define ekran() system("clear") 
+#endif
+
 #define x 22
 #define y 59
 
@@ -75,11 +93,11 @@ void rysowanieplanszy(){//funkcja ktora przysuje pole/weza/owoc
 			if(plansza[i][j] == 0)//blok wykononana siê jesli spe³nia warunek plansza == 0
 				printf(" ");//wyswietla nic  		
 			if(plansza[i][j] == -1)//blok wykononana siê jesli spe³nia warunek plansza == -1
-				printf("%c", 178);//rysuje owoc	
+				printf("%c", owoco);//rysuje owoc	
 			if(plansza[i][j]>0 && plansza[i][j] !=glowa)//blok wykononana siê jesli spe³nia warunek plansza >0 i plansza !=glowa
-				printf("%c",219);//rysuje ogon
+				printf("%c",ogono);//rysuje ogon
 			if(plansza[i][j]==glowa)//blok wykononana siê jesli spe³nia warunek plansza == glowa
-				printf("%c",254);//rysuje glowe
+				printf("%c",glowao);//rysuje glowe
 			if(j==y-1)//blok wykononana siê jesli spe³nia warunek j==y-1
 				printf("%c\n",124);//rysuje prawa strone
 		}	
@@ -101,7 +119,7 @@ char klawa(){ //Funkcja ktora wyczytuje z klawiszy
 }
 void koniec (){
 	printf("\a");
-	system("color 4");
+	kolorc;
 	Sleep(1500);
 	ekran();
 	printf("\n\n\n\n\n\n\n\n\n");
@@ -200,13 +218,13 @@ void start(){
 	printf("\n\n\n\n\n\n\n\n\n");
 	printf("				 Game Snake\n");
 	printf("	  		Kierowanie wezem klawiszami w,a,s,d .\n");
-	printf("	  	 	Gra polega na zbieraniu owocow %c \n", 178);
+	printf("	  	 	Gra polega na zbieraniu owocow %c \n", owoco);
 	printf("	  	 	Za kazdy owoc otrzymujemy 1 pkt  \n");	  	 	
 	printf("		  wcisnij enter aby rozpoczac gre , Esc aby wyjsc");
 }
 int main()
 {
-	system("color 2");
+	kolorz;
 	start();
 	while(1){	
 		par = klawa();
@@ -214,12 +232,12 @@ int main()
 			ekran();		
 			Snake();
 			while(gra == 0){ //pêtla wykononana siê jesli spe³ni warunek gra == 0 
-				system("color 2");
+				kolorz;
 				rysowanieplanszy();
 				losowanieowocow();	
 				pozycja();
 				przesogon();
-				Sleep(predkosc);
+				czas;
 				ResetObrazu();
 			}
 		}
