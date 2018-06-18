@@ -15,6 +15,8 @@
 #define kolorz system("color 2")
 #define ekran() system("cls") 
 #define czas Sleep(predkosc)
+#define czask Sleep(1500)
+#define reset ResetObrazu()
 #endif 
 
 #ifdef __linux__  
@@ -25,6 +27,7 @@
 #define kolorc printf("\033[1;33m") 
 #define kolorz printf("\033[1;32m")
 #define czas sleep(predkosc)
+#define czask sleep(1500)
 #define ekran() system("clear") 
 #endif
 
@@ -120,7 +123,7 @@ char klawa(){ //Funkcja ktora wyczytuje z klawiszy
 void koniec (){
 	printf("\a");
 	kolorc;
-	Sleep(1500);
+	czask;
 	ekran();
 	printf("\n\n\n\n\n\n\n\n\n");
 	printf("			  	    Koniec Gry\n");
@@ -238,6 +241,7 @@ int main()
 				pozycja();
 				przesogon();
 				czas;
+				reset;
 				ResetObrazu();
 			}
 		}
