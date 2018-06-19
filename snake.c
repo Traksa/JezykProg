@@ -17,6 +17,7 @@
 #define czas Sleep(predkosc)
 #define czask Sleep(1500)
 #define reset ResetObrazu()
+
 void ResetObrazu()//Funkcja ktora odœwie¿a obraz 
     {
         HANDLE hOut;
@@ -26,6 +27,7 @@ void ResetObrazu()//Funkcja ktora odœwie¿a obraz
         Position.Y = 0;
         SetConsoleCursorPosition(hOut, Position);
     }
+    
 #endif 
 
 #ifdef __linux__  
