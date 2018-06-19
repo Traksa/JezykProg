@@ -17,7 +17,6 @@
 #define czas Sleep(predkosc)
 #define czask Sleep(1500)
 #define reset ResetObrazu()
-
 void ResetObrazu()//Funkcja ktora odœwie¿a obraz 
     {
         HANDLE hOut;
@@ -27,11 +26,15 @@ void ResetObrazu()//Funkcja ktora odœwie¿a obraz
         Position.Y = 0;
         SetConsoleCursorPosition(hOut, Position);
     }
-    
 #endif 
 
 #ifdef __linux__  
 #include <curses.h>
+//
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
+//
 #define glowao 62
 #define ogono 35
 #define owoco 64
@@ -40,7 +43,49 @@ void ResetObrazu()//Funkcja ktora odœwie¿a obraz
 #define czas sleep(predkosc)
 #define czask sleep(1500)
 #define ekran() system("clear") 
-#define reset sleep(100)
+/* problemy z funkcja klawa() w LINUXIE */
+ int kbhit(void)
+    {
+      struct termios oldt, newt;
+      int ch;
+      int oldf;
+ 
+      tcgetattr(STDIN_FILENO, &oldt);
+      newt = oldt;
+      newt.c_lflag &= ~(ICANON | ECHO);
+      tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+      oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+      fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+ 
+      ch = getchar();
+ 
+      tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+      fcntl(STDIN_FILENO, F_SETFL, oldf);
+ 
+      if(ch != EOF)
+      {
+        ungetc(ch, stdin);
+        return 1;
+      }
+ 
+      return 0;
+    }
+  char getch()
+    {
+        char c;
+        system("stty raw");
+        c= getchar();
+        system("stty sane");
+        //printf("%c",c);
+        return(c);
+    }
+ 
+    void clrscr()
+    {
+        system("clear");
+        return;
+    }
+//
 #endif
 
 #define x 22
@@ -221,7 +266,6 @@ void pozycja(){ // Funkcja ktora porusza wê¿a w cztery strony
 		plansza[x1][z] = glowa;
 	}	
 }
-
 void start(){
 	printf("\n\n\n\n\n\n\n\n\n");
 	printf("				 Game Snake\n");
