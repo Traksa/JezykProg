@@ -17,6 +17,15 @@
 #define czas Sleep(predkosc)
 #define czask Sleep(1500)
 #define reset ResetObrazu()
+void ResetObrazu()//Funkcja ktora odœwie¿a obraz 
+    {
+        HANDLE hOut;
+        COORD Position;
+        hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+        Position.X = 0;
+        Position.Y = 0;
+        SetConsoleCursorPosition(hOut, Position);
+    }
 #endif 
 
 #ifdef __linux__  
@@ -29,6 +38,7 @@
 #define czas sleep(predkosc)
 #define czask sleep(1500)
 #define ekran() system("clear") 
+#define reset sleep(100)
 #endif
 
 #define x 22
@@ -209,15 +219,7 @@ void pozycja(){ // Funkcja ktora porusza wê¿a w cztery strony
 		plansza[x1][z] = glowa;
 	}	
 }
-void ResetObrazu()//Funkcja ktora odœwie¿a obraz 
-    {
-        HANDLE hOut;
-        COORD Position;
-        hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-        Position.X = 0;
-        Position.Y = 0;
-        SetConsoleCursorPosition(hOut, Position);
-    }
+
 void start(){
 	printf("\n\n\n\n\n\n\n\n\n");
 	printf("				 Game Snake\n");
