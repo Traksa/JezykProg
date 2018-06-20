@@ -174,7 +174,7 @@ void rysowanieplanszy(){//funkcja ktora przysuje pole/weza/owoc
 }
 char klawa(){ //Funkcja ktora wyczytuje z klawiszy 
 	if(kbhit()) //sprawdza, czy w buforze klawiatury znajduj¹ siê dane do odczytania
-		return getch(); // czyta z klawiatury bez buforowania 
+		return _getch(); // czyta z klawiatury bez buforowania 
  	else 
 		return -1;
 }
