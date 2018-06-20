@@ -126,7 +126,7 @@ void losowanieowocow(){//Funkcja losuje owoc
 	owoy=1+rand()%57;//losowanie pozycji y
 	if(owoc == 0 && plansza[owox][owoy] == 0){ // blok wykononana siê jesli spe³nia warunek owoc=0 i plansza == 0
 		plansza[owox][owoy]=-1;
-		owoc=2;
+		owoc=1;
 	}
 }
 void rysowanieplanszy(){//funkcja ktora przysuje pole/weza/owoc
@@ -198,13 +198,13 @@ void koniec (){
 void pozycja(){ // Funkcja ktora porusza wê¿a w cztery strony 
 	par = klawa();
 	par = tolower(par);//zamienia duze na male lub male na duze zalezy od sytuacji 
-	if(((par == 'd' || par == 'a') || (par == 'w' || par == 's'))&&(abs(poz - par)>5))poz=par;
+	if(((par == 'd' || par == 'a') || (par == 'w' || par == 's'))&&(abs(poz - par)>5))poz=par;//zwraca wartosc bezwgledna
 	if(poz=='d'){//blok wykononana siê jesli spe³nia warunek poz == d
 		z++;
 		if(plansza[x1][z] !=0 && plansza[x1][z] !=-1) //blok wykononana siê jesli spe³nia warunek plansza !=0 i plansza !=-1
-			koniec();
+			koniec(); //blokuje przecinania sie weza
 		if(z == y)//blok wykononana siê  jesli spe³nia warunek z==y 
-			z=0;
+			z=0; 
 		if(plansza[x1][z]==-1){//blok wykononana siê  jesli spe³nia warunek plansza ==-1
 			punkty=punkty+1;
 			ogon--;
@@ -219,7 +219,7 @@ void pozycja(){ // Funkcja ktora porusza wê¿a w cztery strony
 		if(z==-1)//blok wykononana siê  jesli spe³nia warunek z==-1
 			z=y-1;
 		if(plansza[x1][z] !=0 && plansza[x1][z] !=-1) //blok wykononana siê  jesli spe³nia warunek plansza !=0 i plansza !=-1
-			koniec();
+			koniec();//blokuje przecinania sie weza
 		if(plansza[x1][z]==-1){//blok wykononana siê  jesli spe³nia warunek plansza ==-1
 			punkty=punkty+1;
 			ogon--;
@@ -234,7 +234,7 @@ void pozycja(){ // Funkcja ktora porusza wê¿a w cztery strony
 		if(x1==-1)//blok wykononana siê  jesli spe³nia warunek x1==-1
 			 x1=x-1;
 		if(plansza[x1][z] !=0 && plansza[x1][z] !=-1) //blok wykononana siê  jesli spe³nia warunek plansza !=0 i plansza !=-1
-			koniec();
+			koniec();//blokuje przecinania sie weza
 		if(plansza[x1][z]==-1){//blok wykononana siê  jesli spe³nia warunek plansza ==-1
 			punkty=punkty+1;
 			ogon--;
@@ -249,7 +249,7 @@ void pozycja(){ // Funkcja ktora porusza wê¿a w cztery strony
 		if(x1==x) //blok wykononana siê  jesli spe³nia warunek x1==x
 			x1=0;
 		if(plansza[x1][z] !=0 && plansza[x1][z] !=-1) //blok wykononana siê  jesli spe³nia warunek plansza !=0 i plansza !=-1
-			koniec();
+			koniec();//blokuje przecinania sie weza
 		if(plansza[x1][z]==-1){//blok wykononana siê  jesli spe³nia warunek plansza ==-1
 			punkty=punkty+1;
 			ogon--;
