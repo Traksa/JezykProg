@@ -266,6 +266,7 @@ void pozycja(){ // Funkcja ktora porusza wê¿a w cztery strony
 		plansza[x1][z] = glowa;
 	}	
 }
+
 void start(){
 	printf("\n\n\n\n\n\n\n\n\n");
 	printf("				 Game Snake\n");
@@ -292,6 +293,7 @@ int main()
 				czas;
 				reset;
 				ResetObrazu();
+				// ekran();// tylko dla linuxa
 			}
 		}
 		if(par == 27){//blok wykononana siê  jesli spe³nia warunek par == 27
