@@ -38,7 +38,7 @@ void ResetObrazu()//Funkcja ktora odœwie¿a obraz
 #define glowao 62
 #define ogono 35
 #define owoco 64
-#define kolorc printf("\033[1;33m") 
+#define kolorc printf("\033[1;31m") 
 #define kolorz printf("\033[1;32m")
 #define czas sleep(predkosc)
 #define czask sleep(1500)
