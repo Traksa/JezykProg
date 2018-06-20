@@ -14,7 +14,7 @@
 #define kolorc system("color 4")
 #define kolorz system("color 2")
 #define ekran() system("cls") 
-#define czas Sleep(predkosc)
+#define czas Sleep(ms) ; usleep((ms)*500)
 #define czask Sleep(1500)
 #define reset ResetObrazu()
 void ResetObrazu()//Funkcja ktora odœwie¿a obraz 
