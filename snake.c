@@ -14,7 +14,7 @@
 #define kolorc system("color 4")
 #define kolorz system("color 2")
 #define ekran() system("cls") 
-#define czas Sleep(ms) ; usleep((ms)*500)
+#define czas Sleep(predkosc)
 #define czask Sleep(1500)
 #define reset ResetObrazu()
 void ResetObrazu()//Funkcja ktora odœwie¿a obraz 
@@ -40,7 +40,7 @@ void ResetObrazu()//Funkcja ktora odœwie¿a obraz
 #define owoco 64
 #define kolorc printf("\033[1;31m") 
 #define kolorz printf("\033[1;32m")
-#define czas sleep(predkosc)
+#define czas sleep(ms) ; usleep((ms)*500)
 #define czask sleep(1500)
 #define ekran() system("clear") 
 /* problemy z funkcja klawa() w LINUXIE */
@@ -91,7 +91,7 @@ void ResetObrazu()//Funkcja ktora odœwie¿a obraz
 #define x 22
 #define y 59
 
-int plansza[x][y],owoc,ogon,glowa,gra,predkosc,punkty,i,j,x1,z,owox,owoy,gy1;
+int plansza[x][y],owoc,ogon,glowa,gra,predkosc,punkty,i,j,x1,z,owox,owoy;
 char poz,par;
 void Snake(){//Funkcja g³owna 
 	for(i=0;i<x;i++)
@@ -100,22 +100,16 @@ void Snake(){//Funkcja g³owna
 		{
 			plansza[i][j]=0;
 		}
-	}
-	
+	}	
 	x1=x/2;//pozycja x weza na starcie
 	z=y/2;//pozycja y weza na starcie 
 	glowa=2; // poczatkowa liczba glowa + ogon 
 	predkosc=80;
 	owoc=0;
 	ogon=1;
-	gy1=z;
 	poz='d';
 	gra=0;
 	punkty=0;
-	for(i=0;i<glowa;i++){
-		gy1++;
-		plansza[x1][gy1-glowa]=i+1;
-	}
 }
 void przesogon(){ //Funkcja przesuwa ogon
 	for(i=0;i<x;i++){
